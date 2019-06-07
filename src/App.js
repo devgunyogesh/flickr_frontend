@@ -1,5 +1,5 @@
 import React from 'react';
-import FeedPage from './components/feedpage';
+import FeedPage from './components/feedPage/';
 
 function App() {
   return (

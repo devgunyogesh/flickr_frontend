@@ -26,3 +26,5 @@ Component based styling is left to respective component folders only for the eas
 //Added prop types 
 
 //Implemeting search functionality also.
+
+//Links will open in new tab
