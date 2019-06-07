@@ -1,0 +1,61 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+//Padding mixin
+@mixin padding($top, $right, $bottom, $left) {
+    padding-top: $top;
+    padding-right: $right;
+    padding-bottom: $bottom;
+    padding-left: $left;
+}
+
+//Margin mixin
+@mixin margin($top, $right, $bottom, $left) {
+    margin-top: $top;
+    margin-right: $right;
+    margin-bottom: $bottom;
+    margin-left: $left;
+}
+
+
+//==For Text Styling==
+@mixin font-styling($fsize, $fcolor, $fweigh) {
+    font-size: $fsize;
+    color: $fcolor;
+    font-weight: $fweigh;
+}
+
+// ===For SCREEN SIZES so that we can nest stylinh in same class name
+@mixin bp($point) {
+    @if $point == XXL {
+        @media (min-width: 1600px) {
+            @content;
+        }
+    } @else if $point == XL {
+        @media (max-width: 1200px) {
+            @content;
+        }
+    } @else if $point == L {
+        @media (max-width: 1000px) {
+            @content;
+        }
+    } @else if $point == M {
+        @media (max-width: 850px) {
+            @content;
+        }
+    } @else if $point == S {
+        @media (max-width: 710px) {
+            @content;
+        }
+    } @else if $point == XS {
+        @media (max-width: 650px) {
+            @content;
+        }
+    } @else if $point == XXS {
+        @media (max-width: 400px) {
+            @content;
+        }
+    }
+}
+
