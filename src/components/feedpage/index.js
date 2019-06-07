@@ -1,46 +1,24 @@
-import React, { useState, useEffect } from "react";
-import JSONP from "jsonp";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import constants from "../utils/constants";
 import Navbar from "../navbar";
 import FeedCard from "../feedCard";
-
-const useDataApi = (initialUrl, initialData) => {
-  const [data, setData] = useState(initialData);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  const fetchData = async url => {
-    setIsError(false);
-    setIsLoading(true);
-
-    try {
-      await JSONP(url, { param: "jsoncallback" }, (e, json) => {
-        console.log("JSOSN", json.items);
-        setData(json.items);
-      });
-    } catch (error) {
-      setIsError(true);
-    }
-
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData(initialUrl);
-  }, [initialUrl]);
-
-  return { data, isLoading, isError, fetchData };
-};
+import useInfiniteScroll from "../utils/customHooks/useInfiniteScroll";
+import useFlickrApi from "../utils/customHooks/useFlickrApi";
 
 const FeedPage = () => {
-  const [query, setQuery] = useState("");
-
-  const { data, isLoading, isError, fetchData } = useDataApi(
+  const { flickrItems, isLoading, isError, fetchFlickrItems } = useFlickrApi(
     constants.URL.PHOTOS,
     []
   );
+
+  const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreFlickrItems);
+
+  function fetchMoreFlickrItems() {
+    fetchFlickrItems(constants.URL.PHOTOS);
+    setIsFetching(false);
+  }
 
   return (
     <>
@@ -49,14 +27,18 @@ const FeedPage = () => {
       {isLoading && <div>Loading ...</div>}
 
       {/* === Navbar === */}
-      <Navbar fetchData={fetchData} query={query} setQuery={setQuery} />
+      <Navbar fetchFlickrItems={fetchFlickrItems} />
 
       {/* === Feeds === */}
       <Grid container spacing={2}>
-        {data.map(card => (
-          <FeedCard card={card} />
+        {flickrItems.map((card, index) => (
+          <React.Fragment key={`mykey${index}`}>
+            <FeedCard card={card} />
+          </React.Fragment>
         ))}
       </Grid>
+
+      {isFetching && "Wait while we fetch more items!"}
     </>
   );
 };

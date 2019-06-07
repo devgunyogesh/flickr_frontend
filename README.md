@@ -28,3 +28,7 @@ Component based styling is left to respective component folders only for the eas
 //Implemeting search functionality also.
 
 //Links will open in new tab
+
+//Custom hooks extracted
+
+//On infinite scroll if tag searched consistency maintained.

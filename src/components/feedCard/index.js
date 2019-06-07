@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import constants from "../utils/constants";
 
-const FeedCard = ({ card }) => {
+const FeedCard = ({ card, key }) => {
   let { tags, description, author_id, media, title, url, link, author } = card;
 
   //Split card tags as they are in string.
@@ -28,16 +27,14 @@ const FeedCard = ({ card }) => {
   return (
     <>
       {/* === Feeds UI: Card based === */}
-      <Grid key={author_id} item xs={12} sm={4}>
+      <Grid item xs={12} sm={4}>
         <Card className="">
           <CardMedia className="card_pic" image={media.m} title={title} />
           <CardContent>
             {/* Flickr user can be accessed either by author_id or by username. Below is through author_id */}
             <Typography href={url} component="h5" variant="h5">
               <a href={link}>{title}</a> by{" "}
-              <a href={`${constants.URL.PEOPLE}${author_id}`}>
-                {author}
-              </a>
+              <a href={`${constants.URL.PEOPLE}${author_id}`}>{author}</a>
             </Typography>
 
             <Typography variant="subtitle1" color="textSecondary">
@@ -45,8 +42,8 @@ const FeedCard = ({ card }) => {
             </Typography>
           </CardContent>
 
-          {tags.map(item => (
-            <Button size="small" color="primary">
+          {tags.map((item, index) => (
+            <Button key={`mykey${index}`} size="small" color="primary">
               {item}
             </Button>
           ))}
@@ -57,7 +54,8 @@ const FeedCard = ({ card }) => {
 };
 
 FeedCard.propTypes = {
-  card: PropTypes.object.isRequired
+  card: PropTypes.object.isRequired,
+  key: PropTypes.string
 };
 
 export default FeedCard;

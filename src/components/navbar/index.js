@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 
 import constants from "../utils/constants";
 
-const Navbar = ({ fetchData, setQuery, query }) => {
+const Navbar = ({ fetchFlickrItems }) => {
+  const [query, setQuery] = useState("");
+
   return (
     <div className="navbar">
       {/* === Navbar UI === */}
@@ -22,7 +24,7 @@ const Navbar = ({ fetchData, setQuery, query }) => {
         variant="outlined"
         color="primary"
         onClick={event => {
-          fetchData(`${constants.URL.PHOTOS},${query}`);
+          fetchFlickrItems(`${constants.URL.PHOTOS},${query}`, true);
           event.preventDefault();
         }}
       >
@@ -33,8 +35,7 @@ const Navbar = ({ fetchData, setQuery, query }) => {
 };
 
 Navbar.propTypes = {
-  fetchData: PropTypes.func.isRequired,
-  setQuery: PropTypes.func.isRequired
+  fetchFlickrItems: PropTypes.func.isRequired
 };
 
 export default Navbar;
