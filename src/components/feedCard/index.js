@@ -1,12 +1,14 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
+import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import constants from "../utils/constants";
+import PicLoader from "../utils/picLoader";
+const CardMedia = React.lazy(() => import("@material-ui/core/CardMedia"));
 
 const FeedCard = ({ card, key }) => {
   let { tags, description, author_id, media, title, url, link, author } = card;
@@ -27,28 +29,32 @@ const FeedCard = ({ card, key }) => {
   return (
     <>
       {/* === Feeds UI: Card based === */}
-      <Grid item xs={12} sm={4}>
-        <Card className="">
-          <CardMedia className="card_pic" image={media.m} title={title} />
-          <CardContent>
-            {/* Flickr user can be accessed either by author_id or by username. Below is through author_id */}
-            <Typography href={url} component="h5" variant="h5">
-              <a href={link}>{title}</a> by{" "}
-              <a href={`${constants.URL.PEOPLE}${author_id}`}>{author}</a>
-            </Typography>
+      <Fade in={true}>
+        <Grid item xs={12} sm={4}>
+          <Card className="">
+            <Suspense fallback={<PicLoader />}>
+              <CardMedia className="card_pic" image={media.m} title={title} />
+            </Suspense>
+            <CardContent>
+              {/* Flickr user can be accessed either by author_id or by username. Below is through author_id */}
+              <Typography href={url} component="h5" variant="h5">
+                <a target="_blank" rel="noreferrer"  href={link}>{title}</a> by{" "}
+                <a target="_blank" rel="author" href={`${constants.URL.PEOPLE}${author_id}`}>{author}</a>
+              </Typography>
 
-            <Typography variant="subtitle1" color="textSecondary">
-              <p dangerouslySetInnerHTML={{ __html: description }} />
-            </Typography>
-          </CardContent>
+              <Typography variant="subtitle1" color="textSecondary">
+                <p dangerouslySetInnerHTML={{ __html: description }} />
+              </Typography>
+            </CardContent>
 
-          {tags.map((item, index) => (
-            <Button key={`mykey${index}`} size="small" color="primary">
-              {item}
-            </Button>
-          ))}
-        </Card>
-      </Grid>
+            {tags.map((item, index) => (
+              <Button key={`mykey${index}`} size="small" color="primary">
+                {item}
+              </Button>
+            ))}
+          </Card>
+        </Grid>
+      </Fade>
     </>
   );
 };

@@ -2,8 +2,9 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import constants from "../utils/constants";
-import Navbar from "../navbar";
 import FeedCard from "../feedCard";
+import loader from "../../assets/loader.gif";
+import Navbar from "../navbar";
 import useInfiniteScroll from "../utils/customHooks/useInfiniteScroll";
 import useFlickrApi from "../utils/customHooks/useFlickrApi";
 
@@ -37,8 +38,9 @@ const FeedPage = () => {
           </React.Fragment>
         ))}
       </Grid>
-
-      {isFetching && "Wait while we fetch more items!"}
+      <div className="infinite_loader">
+        {isFetching && <img src={loader} alt="Wait while we load for you!" />}
+      </div>
     </>
   );
 };

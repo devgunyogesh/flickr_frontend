@@ -32,3 +32,12 @@ Component based styling is left to respective component folders only for the eas
 //Custom hooks extracted
 
 //On infinite scroll if tag searched consistency maintained.
+
+//Ways to improve the speed of the page in terms of the images/content loading could have been by code splittiing through React.lazy(), but as we don't have much of code or pages can't use this.
+Another way to speed up and make the images/content better in UX terms is by adding animation and thumbnail loader in every card till then load completely/
+
+//Suspense and Lazy load used 
+
+//Card transition made smooth.
+
+//added flickr loader
