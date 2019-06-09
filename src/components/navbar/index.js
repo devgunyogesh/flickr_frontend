@@ -1,41 +1,51 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
-import TextField from "@material-ui/core/TextField";
+import { Button, Grid, InputBase, Typography } from "@material-ui/core";
 
 import constants from "../utils/constants";
 
-const Navbar = ({ fetchFlickrItems }) => {
+const Navbar = ({ fetchFlickrFeedItems }) => {
   const [query, setQuery] = useState("");
 
   return (
-    <div className="navbar">
-      {/* === Navbar UI === */}
-
-      <TextField
-        id="standard-with-placeholder"
-        label="Search any tag"
-        placeholder="eg Safe"
-        margin="normal"
-        onChange={event => setQuery(event.target.value)}
-        value={query}
-      />
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={event => {
-          fetchFlickrItems(`${constants.URL.PHOTOS},${query}`, true);
-          event.preventDefault();
-        }}
-      >
-        Search
-      </Button>
-    </div>
+    <Grid className="card_cotainer navbar" container spacing={2}>
+      <Grid item xs={12} sm={6} md={6}>
+        {/* === Navbar UI === */}
+        <Typography variant="h5" gutterBottom>
+          Flickr API
+        </Typography>
+      </Grid>
+      <Grid className="search" item xs={12} sm={6} md={6}>
+        <InputBase
+          placeholder="Search any tag eg Safe"
+          className="input"
+          onChange={event => setQuery(event.target.value)}
+          value={query}
+          inputProps={{ "aria-label": "Search Google Maps" }}
+        />
+        <Button
+          variant="outlined"
+          size="small"
+          className="search_btn"
+          onClick={event => {
+            fetchFlickrFeedItems(
+              constants.URL.PHOTOS,
+              [],
+              "search",
+              `safe,${query}`
+            );
+            event.preventDefault();
+          }}
+        >
+          Search
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
 Navbar.propTypes = {
-  fetchFlickrItems: PropTypes.func.isRequired
+  fetchFlickrFeedItems: PropTypes.func.isRequired
 };
 
 export default Navbar;

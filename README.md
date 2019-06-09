@@ -41,3 +41,11 @@ Another way to speed up and make the images/content better in UX terms is by add
 //Card transition made smooth.
 
 //added flickr loader
+
+//useIntersectionObserver hook created to use IntersectionObserver API to load those images only which are in viewport.
+
+//Have to remove react.lazy and suspense as they are still under beta stage and couldn't control api request according to viewport.
+
+//React hooks are bit tricky comared to normal component life cycle methods
+
+//Trying to retain infinite load for searched optin as well.

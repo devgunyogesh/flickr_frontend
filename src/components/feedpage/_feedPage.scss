@@ -1,11 +1,21 @@
-.infinite_loader{
+.search_error {
+    text-align: center;
+    width: 100%;
+}
+
+
+.app_loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.infinite_loader {
     height: 100px;
+    margin: 30px;
     justify-content: center;
     align-items: center;
     display: flex;
-
-    img{
-        width: 80px;
-        height: 80px
-    }
 }

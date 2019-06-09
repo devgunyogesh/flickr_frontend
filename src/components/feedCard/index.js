@@ -1,21 +1,28 @@
-import React, { Suspense } from "react";
+import React, { useRef } from "react";
 import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Fade from "@material-ui/core/Fade";
-import Typography from "@material-ui/core/Typography";
+import { Card, CardContent, Grid, Fade, Typography, CardMedia } from "@material-ui/core";
 import PropTypes from "prop-types";
-import constants from "../utils/constants";
-import PicLoader from "../utils/picLoader";
-const CardMedia = React.lazy(() => import("@material-ui/core/CardMedia"));
 
-const FeedCard = ({ card, key }) => {
+import PicLoader from "../utils/picLoader";
+import constants from "../utils/constants";
+import useIntersectionObserver from "../utils/customHooks/useIntersectionObserver";
+
+const FeedCard = ({ card }) => {
+
+  // Create the ref to element to be observed
+  const elementRef = useRef(null);
+  const { inCardView } = useIntersectionObserver(
+    elementRef,
+    {
+      threshold: 0
+    },
+    () => {}
+  );
+
   let { tags, description, author_id, media, title, url, link, author } = card;
 
   //Split card tags as they are in string.
   //Tags will be in an array to make them appear clickable and redirect to flickr page for that tag.
-
   tags = tags.split(" ");
 
   //Just need description HTML out of all HTML which includes author name, url to author profile, pic, url to pic, description.
@@ -30,25 +37,55 @@ const FeedCard = ({ card, key }) => {
     <>
       {/* === Feeds UI: Card based === */}
       <Fade in={true}>
-        <Grid item xs={12} sm={4}>
-          <Card className="">
-            <Suspense fallback={<PicLoader />}>
-              <CardMedia className="card_pic" image={media.m} title={title} />
-            </Suspense>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card className="card_container">
+            <div ref={elementRef} data-item="fetch-images">
+
+              {inCardView ? (
+                <CardMedia className="card_pic" image={media.m} title={title} />
+              ) : (
+                <CardContent component={() => <PicLoader />} title={title} />
+              )}
+            </div>
+
             <CardContent>
               {/* Flickr user can be accessed either by author_id or by username. Below is through author_id */}
               <Typography href={url} component="h5" variant="h5">
-                <a target="_blank" rel="noreferrer"  href={link}>{title}</a> by{" "}
-                <a target="_blank" rel="author" href={`${constants.URL.PEOPLE}${author_id}`}>{author}</a>
+                <a
+                  className="card_clickable"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={link}
+                >
+                  {title}
+                </a>{" "}
+                by{" "}
+                <a
+                  className="card_clickable"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`${constants.URL.PEOPLE}${author_id}`}
+                >
+                  {author}
+                </a>
               </Typography>
 
-              <Typography variant="subtitle1" color="textSecondary">
+              <Typography
+                className="card_desc"
+                component="h6"
+                variant="subtitle1"
+              >
                 <p dangerouslySetInnerHTML={{ __html: description }} />
               </Typography>
             </CardContent>
 
             {tags.map((item, index) => (
-              <Button key={`mykey${index}`} size="small" color="primary">
+              <Button
+                variant="outlined"
+                className="tag_btn"
+                key={`mykey${index}`}
+                size="small"
+              >
                 {item}
               </Button>
             ))}

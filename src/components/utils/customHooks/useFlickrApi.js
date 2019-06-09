@@ -1,35 +1,58 @@
 import { useState, useEffect } from "react";
 import JSONP from "jsonp";
+import constants from "../constants";
 
-const useFlickrApi = (initialUrl, initialData) => {
-  let [flickrItems, setData] = useState(initialData);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+const useFlickrApi = (initialUrl, initialData, fetchName, fetchQuery) => {
+  let [flickrFeedItems, setFlickrFeedItems] = useState(initialData);
+  const [isLoadingFeed, setIsLoadingFeed] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState({
+    inLoadingMoreView: false,
+    triggered: false
+  });
 
-  const fetchFlickrItems = async ( url, initialData ) => {
-    setIsError(false);
-    setIsLoading(true);
+  const [isApiError, setIsApiError] = useState(false);
 
-    //When new tag based search empty array.
-    //when infinite scroll request retain flickrItems.
-    flickrItems = initialData ?  [] : [...flickrItems];
-    try {
-      await JSONP(url, { param: "jsoncallback" }, (e, json) => {
-        console.log("JSOSN", json.items);
-        setData([...flickrItems, ...json.items]);
+  const fetchFlickrFeedItems = (url, data, name, query) => {
+    //Not using url passed in arguments, but will keep in case if its different sometime.
+    setIsApiError(false);
+
+    (name === "first" || name === "search") && setIsLoadingFeed(true);
+    name === "more" &&
+      setIsLoadingMore({
+        inLoadingMoreView: true,
+        triggered: true
       });
-    } catch (error) {
-      setIsError(true);
-    }
 
-    setIsLoading(false);
+    try {
+      JSONP(
+        `${constants.URL.PHOTOS}${query}`,
+        { param: "jsoncallback" },
+        (e, json) => {
+          setFlickrFeedItems([...data, ...json.items]);
+          (name === "first" || name === "search") && setIsLoadingFeed(false);
+          name === "more" &&
+            setIsLoadingMore({
+              inLoadingMoreView: false,
+              triggered: false
+            });
+        }
+      );
+    } catch (error) {
+      setIsApiError(true);
+    }
   };
 
   useEffect(() => {
-    fetchFlickrItems(initialUrl, initialData);
+    fetchFlickrFeedItems(initialUrl, initialData, fetchName, fetchQuery);
   }, [initialUrl]);
 
-  return { flickrItems, isLoading, isError, fetchFlickrItems };
+  return {
+    flickrFeedItems,
+    isLoadingFeed,
+    isApiError,
+    fetchFlickrFeedItems,
+    isLoadingMore
+  };
 };
 
 export default useFlickrApi;

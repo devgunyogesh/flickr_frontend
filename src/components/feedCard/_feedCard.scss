@@ -1,7 +1,24 @@
-.feeds{
-    color: green;
-}
+.card_container {
+    .card_pic {
+        height: 200px;
+    }
 
-.card_pic{
-    height: 200px;
+    .tag_btn {
+        color: #D3DCE6;
+        border-color: #D3DCE6;
+        margin: 4px;
+    }
+
+    .card_desc {
+        color: #3C4858;
+    }
+
+    .card_clickable {
+        color: #1F2D3D;
+        text-transform: capitalize;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
