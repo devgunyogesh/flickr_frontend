@@ -29,7 +29,12 @@ const FeedPage = () => {
       entries[0].target.getAttribute("data-item") === "fetch-feed"
     ) {
       observerInstance.unobserve(loaderRef.current);
-      fetchMoreFlickrItems();
+      fetchFlickrFeedItems(
+        constants.URL.PHOTOS,
+        [...flickrFeedItems],
+        "more",
+        "safe"
+      );
     }
 
     return;
@@ -42,15 +47,6 @@ const FeedPage = () => {
       observer.observe(loaderRef.current);
     }
   });
-
-  function fetchMoreFlickrItems() {
-    fetchFlickrFeedItems(
-      constants.URL.PHOTOS,
-      [...flickrFeedItems],
-      "more",
-      "safe"
-    );
-  }
 
   return (
     <>

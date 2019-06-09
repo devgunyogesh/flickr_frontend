@@ -15,9 +15,7 @@ const FeedCard = ({ card }) => {
     elementRef,
     {
       threshold: 0
-    },
-    () => {}
-  );
+    });
 
   let { tags, description, author_id, media, title, url, link, author } = card;
 
