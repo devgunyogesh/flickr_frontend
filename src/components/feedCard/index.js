@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-import PicLoader from "../utils/PicLoader";
+import MediaLoader from "../utils/MediaLoader";
 import constants from "../utils/constants";
 import useIntersectionObserver from "../utils/customHooks/useIntersectionObserver";
 
@@ -44,7 +44,7 @@ const FeedCard = ({ card }) => {
               {inCardView ? (
                 <CardMedia className="card_pic" image={media.m} title={title} />
               ) : (
-                <CardContent component={() => <PicLoader />} title={title} />
+                <CardContent component={() => <MediaLoader />} title={title} />
               )}
             </div>
 

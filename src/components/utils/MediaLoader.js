@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const PicLoader = () => (
+const MediaLoader = () => (
   <ContentLoader
     height={200}
     width={400}
@@ -13,4 +13,4 @@ const PicLoader = () => (
   </ContentLoader>
 );
 
-export default PicLoader;
+export default MediaLoader;
