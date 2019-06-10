@@ -13,7 +13,7 @@ const useFlickrApi = (initialUrl, initialData, fetchName, fetchQuery) => {
   const [isApiError, setIsApiError] = useState(false);
 
   const fetchFlickrFeedItems = (url, data, name, query) => {
-    //Not using url passed in arguments, but will keep in case if its different sometime.
+    //Not using url passed in argument, but will keep in case if its different sometime.
     setIsApiError(false);
 
     (name === "first" || name === "search") && setIsLoadingFeed(true);

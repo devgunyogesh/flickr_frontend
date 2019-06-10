@@ -31,9 +31,15 @@ time, mark, audio, video {
 }
 
 body {
-	line-height: 1;
+    line-height: 1;
     overflow-x: hidden;
     background-color: #fff;
     font-size: 16px;
     color: #3C4858;
 }
+
+//Flickr app variables
+$fa-text: #3C4858;
+$fa-btn: #D3DCE6;
+$fa-boldtext: #1F2D3D;
+$fa-search: #273444;

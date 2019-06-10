@@ -1,21 +1,24 @@
 import React, { useRef } from "react";
 import Button from "@material-ui/core/Button";
-import { Card, CardContent, Grid, Fade, Typography, CardMedia } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Grid,
+  Fade,
+  Typography,
+  CardMedia
+} from "@material-ui/core";
 import PropTypes from "prop-types";
 
-import PicLoader from "../utils/picLoader";
+import PicLoader from "../utils/PicLoader";
 import constants from "../utils/constants";
 import useIntersectionObserver from "../utils/customHooks/useIntersectionObserver";
 
 const FeedCard = ({ card }) => {
-
-  // Create the ref to element to be observed
-  const elementRef = useRef(null);
-  const { inCardView } = useIntersectionObserver(
-    elementRef,
-    {
-      threshold: 0
-    });
+  const cardMediaRef = useRef(null);
+  const { inCardView } = useIntersectionObserver(cardMediaRef, {
+    threshold: 0
+  });
 
   let { tags, description, author_id, media, title, url, link, author } = card;
 
@@ -37,8 +40,7 @@ const FeedCard = ({ card }) => {
       <Fade in={true}>
         <Grid item xs={12} sm={6} md={4}>
           <Card className="card_container">
-            <div ref={elementRef} data-item="fetch-images">
-
+            <div ref={cardMediaRef} data-item="fetch-images">
               {inCardView ? (
                 <CardMedia className="card_pic" image={media.m} title={title} />
               ) : (
@@ -50,19 +52,19 @@ const FeedCard = ({ card }) => {
               {/* Flickr user can be accessed either by author_id or by username. Below is through author_id */}
               <Typography href={url} component="h5" variant="h5">
                 <a
-                  className="card_clickable"
+                  className="card_link"
+                  href={link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={link}
                 >
                   {title}
                 </a>{" "}
                 by{" "}
                 <a
-                  className="card_clickable"
+                  className="card_link"
+                  href={`${constants.URL.PEOPLE}${author_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`${constants.URL.PEOPLE}${author_id}`}
                 >
                   {author}
                 </a>
@@ -96,7 +98,6 @@ const FeedCard = ({ card }) => {
 
 FeedCard.propTypes = {
   card: PropTypes.object.isRequired,
-  key: PropTypes.string
 };
 
 export default FeedCard;

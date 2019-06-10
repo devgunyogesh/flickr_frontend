@@ -3,19 +3,12 @@
     width: 100%;
 }
 
-
 .app_loader {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @include screen-center;
 }
-
 
 .infinite_loader {
     height: 100px;
     margin: 30px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+    @include flex-center;
 }

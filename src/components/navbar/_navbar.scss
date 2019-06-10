@@ -1,19 +1,19 @@
-.navbar{
-    color: #273444;
+.navbar {
+    color: $fa-search;
     padding: 15px 10px;
-    
-    .search{
+
+    .search {
         display: flex;
         justify-content: flex-end;
 
-        .search_btn{
-           color: #273444; 
-           border-color: #273444;
+        .search_btn {
+            color: $fa-search;
+            border-color: $fa-search;
         }
     }
 
-    .input{
-        border-bottom: 1px solid #273444;
+    .input {
+        border-bottom: 1px solid $fa-search;
         margin-right: 10px;
     }
 }

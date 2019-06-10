@@ -2,6 +2,27 @@
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
 
+//==For Text Styling==
+@mixin font-styling($fsize, $fcolor, $fweigh) {
+    font-size: $fsize;
+    color: $fcolor;
+    font-weight: $fweigh;
+}
+
+//==To center== 
+@mixin screen-center{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 //Padding mixin
 @mixin padding($top, $right, $bottom, $left) {
     padding-top: $top;
@@ -16,14 +37,6 @@
     margin-right: $right;
     margin-bottom: $bottom;
     margin-left: $left;
-}
-
-
-//==For Text Styling==
-@mixin font-styling($fsize, $fcolor, $fweigh) {
-    font-size: $fsize;
-    color: $fcolor;
-    font-weight: $fweigh;
 }
 
 // ===For SCREEN SIZES so that we can nest stylinh in same class name

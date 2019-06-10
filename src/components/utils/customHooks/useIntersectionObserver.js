@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useIntersectionObserver = (ref, { threshold, root, rootMargin }) => {
-  // Card view states
+
   const [isCard, setCardState] = useState({
     inCardView: false,
     triggered: false,
@@ -15,7 +15,7 @@ const useIntersectionObserver = (ref, { threshold, root, rootMargin }) => {
         triggered: true,
         entry: observerInstance
       });
-      // unobserve the element
+
       observerInstance.unobserve(ref.current);
     }
     return;

@@ -7,7 +7,6 @@ import constants from "../utils/constants";
 import useFlickrApi from "../utils/customHooks/useFlickrApi";
 
 const FeedPage = () => {
-  //First time fetch
   const {
     flickrFeedItems,
     isLoadingFeed,
@@ -16,6 +15,7 @@ const FeedPage = () => {
     isLoadingMore
   } = useFlickrApi(constants.URL.PHOTOS, [], "first", "safe");
 
+  // === Intersection observer for infinite loading starts == //
   const loaderRef = useRef(null);
   const options = {
     root: null,
@@ -23,7 +23,7 @@ const FeedPage = () => {
     threshold: 0
   };
 
-  let callback = async (entries, observerInstance) => {
+  let callback = (entries, observerInstance) => {
     if (
       entries[0].intersectionRatio > 0 &&
       entries[0].target.getAttribute("data-item") === "fetch-feed"
@@ -47,6 +47,8 @@ const FeedPage = () => {
       observer.observe(loaderRef.current);
     }
   });
+
+  // === Intersection observer for infinite loading ends == //
 
   return (
     <>

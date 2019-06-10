@@ -4,17 +4,17 @@
     }
 
     .tag_btn {
-        color: #D3DCE6;
-        border-color: #D3DCE6;
+        color: $fa-btn;
+        border-color: $fa-btn;
         margin: 4px;
     }
 
     .card_desc {
-        color: #3C4858;
+        color: $fa-text;
     }
 
-    .card_clickable {
-        color: #1F2D3D;
+    .card_link {
+        color: $fa-boldtext;
         text-transform: capitalize;
 
         &:hover {

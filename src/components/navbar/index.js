@@ -21,7 +21,6 @@ const Navbar = ({ fetchFlickrFeedItems }) => {
           className="input"
           onChange={event => setQuery(event.target.value)}
           value={query}
-          inputProps={{ "aria-label": "Search Google Maps" }}
         />
         <Button
           variant="outlined"

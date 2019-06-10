@@ -89,3 +89,7 @@ Though folder structure can be kept very light for this app, but I am trying to 
 - consistency
 - reusability
 - modularity
+
+** Apart from react hook the same task can be made in class component way also.
+** Instead using intersection observer for infinite scrolling, it can be implemented through scroller also.
+ 
