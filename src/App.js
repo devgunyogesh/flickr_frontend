@@ -1,6 +1,6 @@
 import React from "react";
-import 'intersection-observer';
-import FeedPage from "./components/feedPage/";
+import "intersection-observer";
+import FeedPage from "./components/feedPage";
 
 function App() {
   return (

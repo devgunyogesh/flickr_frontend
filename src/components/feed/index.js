@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from "react";
-import { CircularProgress, Grid, Typography } from "@material-ui/core";
+import React, { useRef, useEffect } from "reacte_modules/react";
+import { CircularProgress, Grid, Typography } from "@material-ui/coreaterial-ui/core";
 
 import FeedCard from "../feedCard";
 import Navbar from "../navbar";
